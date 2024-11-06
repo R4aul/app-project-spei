@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name_course');
             $table->boolean('status');
+            $table->integer('study_hours');
             $table->foreignId('program_id')->constrained();
             $table->timestamps();
         });
