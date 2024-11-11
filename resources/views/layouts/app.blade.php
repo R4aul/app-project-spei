@@ -13,7 +13,7 @@
         <div class="flex h-screen">
             @include('layouts.menu-button')
             @include('layouts.sidebar')
-            <main class="flex-1 p-6 bg-white rounded-lg shadow-md ml-0 md:ml-64 transition-all">
+            <main class="flex-1 p-6 ml-0 md:ml-64 transition-all">
                 @yield('content')
             </main>
         </div>

@@ -17,7 +17,7 @@ class ProfileFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name_profile' => fake()->sentence()
         ];
     }
 }

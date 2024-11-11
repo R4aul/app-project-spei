@@ -17,7 +17,7 @@ class ModuleFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name_module' => fake()->sentence()
         ];
     }
 }

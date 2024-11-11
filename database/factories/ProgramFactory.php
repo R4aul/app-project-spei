@@ -17,7 +17,8 @@ class ProgramFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name_program' => fake()->sentence(),
+            'study_hours' =>fake()->numberBetween(120,200),
         ];
     }
 }

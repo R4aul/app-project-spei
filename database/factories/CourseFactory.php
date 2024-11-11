@@ -17,7 +17,9 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name_course' => fake()->sentence(),
+            'status' => fake()->boolean(),
+            'study_hours' => fake()->numberBetween(2,12),
         ];
     }
 }
