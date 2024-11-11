@@ -17,4 +17,8 @@ class Employee extends Model
     public function cell(){
         return $this->belongsTo(Cell::class);
     }
+
+    public function courses(){
+        return $this->belongsToMany(Course::class);
+    }
 }

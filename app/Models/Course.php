@@ -22,6 +22,10 @@ class Course extends Model
         return $this->belongsToMany(Profile::class, 'course_profile');
     }
 
+    public function employees(){
+        return $this->belongsToMany(Employee::class);
+    }
+
     public function scopeFilter($query)
     {
         $query->when(request('search'), function ($query) {
