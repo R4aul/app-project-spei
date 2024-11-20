@@ -60,7 +60,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18' # Usa la versión de Node.js que necesites
+          node-version: '18'
 
       # 8. Install NPM dependencies
       - name: Install NPM dependencies
@@ -73,3 +73,22 @@ jobs:
       # 10. Run Laravel tests
       - name: Run tests
         run: php artisan test
+
+      # 11. Package artifacts into a ZIP file
+      - name: Package artifacts
+        run: zip -r application.zip . -x "node_modules/*" "vendor/*" ".git/*"
+
+      # 12. Upload artifact
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: application-artifact
+          path: application.zip
+
+      # 13. Deploy the application
+      - name: Deploy application
+        env:
+          DOCKER_BUILDKIT: 1
+        run: |
+          docker build -t my-laravel-app .
+          docker run -d -p 80:80 --name laravel-app my-laravel-app
