@@ -53,7 +53,7 @@ class EmployeeController extends Controller
             'cell_id' => $request->cell_id
         ]);
         $employee->courses()->attach($request->courses);
-        return redirect()->route('employess.index');
+        return redirect()->route('employees.index');
     }
 
     /**
