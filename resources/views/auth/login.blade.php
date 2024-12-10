@@ -3,6 +3,7 @@
 @section('content')
     <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
         <h2 class="text-2xl font-bold text-center text-gray-700 mb-6">Inicio de sesión</h2>
+        <img src="{{asset('karpay.svg')}}" alt="">
         @if (session('info'))
             <div class="flex items-center p-4 mb-4 text-sm text-red-800 bg-red-50 rounded-lg" role="alert">
                 <svg class="w-4 h-4 mr-3" fill="currentColor" viewBox="0 0 20 20">

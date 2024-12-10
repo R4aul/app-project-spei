@@ -14,14 +14,14 @@ class EmployeeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index( Request $request)
+    public function index(Request $request)
     {
         $profiles = Profile::all();
         $cells = Cell::all();
         $employees = Employee::with(['profile', 'cell'])
-                            ->filter()
-                            ->orderBy('name_employee','desc')
-                            ->paginate(15);
+            ->filter()
+            ->orderBy('name_employee', 'desc')
+            ->paginate(15);
         return view('employees.index', compact('employees', 'cells', 'profiles'));
     }
 
@@ -43,17 +43,29 @@ class EmployeeController extends Controller
         $request->validate([
             'name_employee' => ['required', 'min:5'],
             'email' => ['required', 'email', 'unique:employees,email'],
-            'profiles' => ['nullable','array'],
+            'profiles' => ['nullable', 'array'],
             'cells' => ['nullable', 'array']
         ]);
         $employee = Employee::create([
             'name_employee' => $request->name_employee,
             'email' => $request->email,
-            'profile_id' =>$request->profile_id,
+            'profile_id' => $request->profile_id,
             'cell_id' => $request->cell_id
         ]);
         $employee->courses()->attach($request->courses);
         return redirect()->route('employees.index');
+    }
+
+    public function show(Employee $employee)
+    {
+        $employee->with([
+            'profile',
+            'cell', 
+            'courses'=> function ($query){
+                $query->where('status',1);
+            }
+        ])->get();
+        return view('employees.show', compact('employee'));
     }
 
     /**
@@ -61,9 +73,23 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-       $profiles = Profile::all();
-       $cells = Cell::all();
-       return view('employees.edit',compact('employee','profiles','cells')); 
+        $profiles = Profile::all();
+        $cells = Cell::all();
+        return view('employees.edit', compact('employee', 'profiles', 'cells'));
+    }
+
+
+    public function low(Request $request, Employee $employee)
+    {
+        $request->validate([
+            'status' => 'required|boolean',
+        ]);
+
+        $employee = Employee::findOrFail($employee->id);
+        $employee->status = $request->input('status');
+        $employee->save();
+
+        return redirect()->route('employees.edit',compact('employee'));
     }
 
     /**
@@ -74,17 +100,16 @@ class EmployeeController extends Controller
         $request->validate([
             'name_employee' => ['required', 'min:5'],
             'email' => ['required'],
-            'profiles' => ['nullable','array'],
+            'profiles' => ['nullable', 'array'],
             'cells' => ['nullable', 'array']
         ]);
         $employee->update([
             'name_employee' => $request->name_employee,
             'email' => $request->email,
-            'profile_id' =>$request->profile_id,
+            'profile_id' => $request->profile_id,
             'cell_id' => $request->cell_id
         ]);
         $employee->courses()->sync($request->courses);
         return redirect()->route('employees.index');
     }
-
 }

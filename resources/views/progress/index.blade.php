@@ -1,41 +1,68 @@
 @extends('layouts.app')
-@section('title','progress')
+@section('title', 'progress')
 @section('content')
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table class="w-full text-sm text-left text-gray-500">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                <tr>
-                    <th scope="col" class="px-6 py-3">id</th>
-                    <th scope="col" class="px-6 py-3">Nombre del curso</th>
-                    <th scope="col" class="px-6 py-3">perfil</th>
-                    <th scope="col" class="px-6 py-3">id empleado</th>
-                    <th scope="col" class="px-6 py-3">Celula</th>
-                    <th scope="col" class="px-6 py-3">Email</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($employees as $employee)
-                    <tr class="bg-white border-b hover:bg-gray-50">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                            {{$employee->id}}
+
+    <!-- resources/views/employees/progress.blade.php -->
+    <div class="container mx-auto mt-6">
+        <div class="overflow-x-auto rounded-lg shadow-lg">
+            <table class="min-w-full bg-white border border-gray-200">
+                <thead class="bg-blue-500 text-white">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider">ID</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider">Nombre</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider">Email</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider">Perfil</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider">Celula</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider">Detalles del Programa
                         </th>
-                        <td class="px-6 py-4">{{ $employee->name_employee }}</td>
-                        <td class="px-6 py-4">{{ $employee->profile->name_profile }}</td>
-                        <td class="px-6 py-4">{{ $employee->id }}</td>
-                        <td class="px-6 py-4">{{ $employee->cell->name_cell }}</td>
-                        <td class="px-6 py-4">{{ $employee->email }}</td>
-{{--                         <td class="flex items-center px-6 py-4">
-                            <a href="{{ route('courses.edit', $course) }}" class="font-medium text-blue-600 hover:underline">
-                                Editar
-                            </a>
-                        </td> --}}
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    @foreach ($progressData as $data)
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 text-sm text-gray-700">{{ $data['employee']['id'] }}</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">{{ $data['employee']['name'] }}</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">{{ $data['employee']['email'] }}</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">{{ $data['employee']['profile'] }}</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">{{ $data['employee']['cell'] }}</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">
+                                <div class="overflow-x-auto">
+                                    <table class="min-w-full border border-gray-300">
+                                        <thead>
+                                            <tr class="bg-gray-100">
+                                                <th class="px-4 py-2 border">Programa</th>
+                                                <th class="px-4 py-2 border">Total Cursos</th>
+                                                <th class="px-4 py-2 border">Completados</th>
+                                                <th class="px-4 py-2 border">Porcentaje</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($data['programs'] as $program)
+                                                <tr class="hover:bg-gray-50">
+                                                    <td class="px-4 py-2 border">{{ $program['program'] }}</td>
+                                                    <td class="px-4 py-2 border text-center">{{ $program['total_courses'] }}
+                                                    </td>
+                                                    <td class="px-4 py-2 border text-center">
+                                                        {{ $program['completed_courses'] }}</td>
+                                                    <td class="px-4 py-2 border text-center">
+                                                        {{ $program['progress_percentage'] }}%</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
         <!-- Paginación -->
-    <div class="p-4">
-        {{ $employees->links() }}
+        <div class="p-8">
+            {{ $employees->links('pagination::tailwind') }}
+        </div>
     </div>
+
+
 @endsection

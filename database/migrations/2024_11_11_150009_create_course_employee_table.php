@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('course_id')->constrained();
             $table->foreignId('employee_id')->constrained();
-            $table->date('completion_date');
-            $table->boolean('completed');
-            $table->decimal('grade', 5,2);
+            $table->date('init_date')->nullable();
+            $table->date('completion_date')->nullable();
+            $table->boolean('completed')->nullable();
+            $table->decimal('grade', 5,2)->nullable();
             $table->timestamps();
         });
     }

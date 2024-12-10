@@ -29,7 +29,8 @@ class Employee extends Model
 
     public function courses()
     {
-        return $this->belongsToMany(Course::class);
+        return $this->belongsToMany(Course::class)
+                                ->withPivot('init_date','completion_date','completed','grade');
     }
 
     public function scopeFilter($query)

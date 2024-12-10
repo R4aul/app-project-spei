@@ -53,12 +53,35 @@
                 </select>
             </div>
 
-            <!-- Botón para Crear Curso -->
-            <div class="flex justify-end">
+            <!-- Botón para Actualizar -->
+            <div class="flex justify-end space-x-4">
                 <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
                     Actualizar Empleado
                 </button>
+                
+                <!-- Botón para Dar de Baja -->
+                <button 
+                    type="button"
+                    class="px-4 py-2 text-white rounded-lg {{ $employee->status ? 'bg-red-600 hover:bg-red-700' : 'bg-green-600 hover:bg-green-700' }}"
+                    onclick="lowEmployee()"
+                >
+                    {{ $employee->status ? 'Dar de Baja' : 'Activar' }}
+                </button>
             </div>
         </form>
+        <form action="{{route("employees.low", $employee)}}" method="POST" id="formLow">
+            @csrf
+            @method('PATCH')
+            <input type="hidden" name="status" value="{{ $employee->status ? 0 : 1 }}">
+        </form>
     </div>
+    @push('js')
+        <script>
+            function lowEmployee() {
+                alert('Estas seguro de dar de baja a este empeleado')
+                let form = document.getElementById('formLow');
+                form.submit();
+            }
+        </script>
+    @endpush
 @endsection

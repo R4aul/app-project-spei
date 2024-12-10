@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name_employee');
             $table->string('email');
+            $table->boolean('status')->default(true);
             $table->foreignId('profile_id')->constrained();
             $table->foreignId('cell_id')->constrained();
             $table->timestamps();

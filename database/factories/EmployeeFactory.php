@@ -19,6 +19,9 @@ class EmployeeFactory extends Factory
         return [
             'name_employee' => fake()->name(),
             'email' => fake()->email(),
+            'status'=>true,
+            'profile_id'=>fake()->numberBetween(1,12),
+            'cell_id'=>fake()->numberBetween(1, 10)
         ];
     }
 }
