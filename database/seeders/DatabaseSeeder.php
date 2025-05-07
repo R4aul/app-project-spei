@@ -47,6 +47,7 @@ class DatabaseSeeder extends Seeder
             OfficeSeeder::class,
             ComplementarySoftskillsSeeder::class,
             ProfileSeeder::class,
+            CourseProfileSeeder::class
         ]);
         
         Employee::factory(20)->create();

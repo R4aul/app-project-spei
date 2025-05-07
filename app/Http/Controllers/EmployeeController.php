@@ -42,12 +42,14 @@ class EmployeeController extends Controller
     {
         $request->validate([
             'name_employee' => ['required', 'min:5'],
+            'id_employee' => ['required', 'string'],
             'email' => ['required', 'email', 'unique:employees,email'],
             'profiles' => ['nullable', 'array'],
             'cells' => ['nullable', 'array']
         ]);
         $employee = Employee::create([
             'name_employee' => $request->name_employee,
+            'id_employee' => $request->id_employee,
             'email' => $request->email,
             'profile_id' => $request->profile_id,
             'cell_id' => $request->cell_id

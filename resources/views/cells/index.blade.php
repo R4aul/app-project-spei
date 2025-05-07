@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-semibold text-gray-800">Listado de Empleados</h2>
+        <h2 class="text-xl font-semibold text-gray-800">Listado de Celulas</h2>
         <a href="{{ route('cells.create') }}" class="px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg">
             Crear Celula
         </a>

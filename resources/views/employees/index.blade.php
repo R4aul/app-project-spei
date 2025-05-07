@@ -64,6 +64,7 @@
                 <tr>
                     <th scope="col" class="px-6 py-3">Nombre del empleado</th>
                     <th scope="col" class="px-6 py-3">Email</th>
+                    <th scope="col" class="px-6 py-3">ID</th>
                     <th scope="col" class="px-6 py-3">Perfil</th>
                     <th scope="col" class="px-6 py-3">Celula</th>
                     <th scope="col" class="px-6 py-3">Acción</th>
@@ -77,6 +78,9 @@
                         </th>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                             {{ $employee->email }}
+                        </th>
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            {{ $employee->id_employee }}
                         </th>
                         <td class="px-6 py-4">{{ $employee->profile->name_profile }}</td>
                         <td class="px-6 py-4">{{ $employee->cell->name_cell }}</td>

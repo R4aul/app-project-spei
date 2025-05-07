@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name_program');
             $table->integer('study_hours')->nullable();
-            //$table->foreignId('module_id')->constrained();
             $table->timestamps();
         });
     }

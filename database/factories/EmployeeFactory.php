@@ -16,8 +16,13 @@ class EmployeeFactory extends Factory
      */
     public function definition(): array
     {
+        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*';
+        $id = collect(str_split($characters))
+            ->random(5)
+            ->implode('');
         return [
             'name_employee' => fake()->name(),
+            'id_employee' => $id,
             'email' => fake()->email(),
             'status'=>true,
             'profile_id'=>fake()->numberBetween(1,12),
