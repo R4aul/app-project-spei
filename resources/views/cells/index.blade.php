@@ -9,6 +9,20 @@
         </a>
     </div>
     <!-- Tabla de cursos -->
+
+    @if (session('warning'))
+        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+            <span class="font-medium">Error!</span> {{ session('warning') }}
+        </div>
+    @endif
+
+    <!-- Alerta de éxito -->
+    @if (session('success'))
+        <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50" role="alert">
+            <span class="font-medium">¡Éxito!</span> {{ session('success') }}.
+        </div>
+    @endif
+
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
 
         <table class="w-full text-sm text-left text-gray-500">
@@ -31,13 +45,23 @@
                                 class="inline-block px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
                                 Editar
                             </a>
+
+                            <!-- Botón Eliminar -->
+                            <form action="{{ route('cells.destroy', $cell) }}" method="POST"
+                                onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta celula?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
+                                    Eliminar Celula
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
-        <!-- Paginación -->
+    <!-- Paginación -->
     <div class="p-4">
         {{ $cells->links() }}
     </div>

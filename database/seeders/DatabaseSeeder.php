@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
             'password'=>bcrypt('12345678')
         ]);
 
-        Cell::factory(10)->create();
+        //Cell::factory(10)->create();
         
         $this->call([
             OperationelTechnicalSeeder::class,
@@ -47,9 +47,10 @@ class DatabaseSeeder extends Seeder
             OfficeSeeder::class,
             ComplementarySoftskillsSeeder::class,
             ProfileSeeder::class,
-            CourseProfileSeeder::class
+            CourseProfileSeeder::class,
+            CellsSeeder::class
         ]);
         
-        Employee::factory(20)->create();
+        //Employee::factory(20)->create();
     }
 }

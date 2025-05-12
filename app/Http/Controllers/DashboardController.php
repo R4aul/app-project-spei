@@ -9,7 +9,12 @@ class DashboardController extends Controller
     public function index()
     {
         // Porcentaje de avance por perfiles
-        $profilesProgress = \App\Models\Profile::with(['employees.courses'])
+        $profilesProgress = \App\Models\Profile::with([
+            'employees' => function($query){
+                $query->where('status',true);
+            },
+            'employees.courses'
+            ])
             ->get()
             ->map(function ($profile) {
                 $totalCourses = $profile->employees->flatMap->courses->count();
@@ -29,7 +34,12 @@ class DashboardController extends Controller
         $lowestProfile = $profilesProgress->sortBy('progress')->first();
 
         // Cumplimiento por células
-        $cellsProgress = \App\Models\Cell::with(['employees.courses'])
+        $cellsProgress = \App\Models\Cell::with([
+            'employees'=> function($query){
+                $query->where('status',true);
+            },
+            'employees.courses'
+            ])
             ->get()
             ->map(function ($cell) {
                 $totalCourses = $cell->employees->flatMap->courses->count();
@@ -49,7 +59,11 @@ class DashboardController extends Controller
         $lowestCell = $cellsProgress->sortBy('progress')->first();
 
         // Cumplimiento por cursos
-        $coursesProgress = \App\Models\Course::with(['employees'])
+        $coursesProgress = \App\Models\Course::with([
+            'employees'=>function($query){
+                $query->where('status',true);
+            }
+            ])
             ->get()
             ->map(function ($course) {
                 $totalAssignments = $course->employees->count();

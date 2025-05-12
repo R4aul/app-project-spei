@@ -65,7 +65,7 @@
                 </ul>
             </div>
             <!-- Botón para Crear Curso -->
-            <div class="flex justify-end">
+            <div class="flex justify-between mt-4">
                 <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
                     Actualizar Curso
                 </button>

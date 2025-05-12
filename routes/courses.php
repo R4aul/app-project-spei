@@ -8,5 +8,6 @@ Route::prefix('/courses')->controller(CourseController::class)->group(function()
   Route::get('/create','create')->name('courses.create');  
   Route::post('/store','store')->name('courses.store');  
   Route::get('/{course}/edit','edit')->name('courses.edit');  
-  Route::put('/update/{course}','update')->name('courses.update');  
+  Route::put('/{course}/update','update')->name('courses.update');  
+  Route::delete('{course}/destroy','destroy')->name('courses.destroy');
 })->middleware('auth.basic');

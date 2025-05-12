@@ -15,7 +15,7 @@ class ProgressProfileController extends Controller
         $profiles = Profile::all(); 
         $cells = Cell::all(); 
         // Usamos paginate para obtener la paginación de los empleados
-        $employees = Employee::with([
+        $employees = Employee::where('status',true)->with([
             'courses.program.courses',
             'profile',
             'cell',

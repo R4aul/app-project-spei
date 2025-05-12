@@ -66,7 +66,10 @@ class CellController extends Controller
      */
     public function destroy(Cell $cell)
     {
+        if($cell->employees()->exists()){
+            return redirect()->back()->with('warning', 'No se puede eliminar el curso porque tiene empleados asignados.');
+        }
         $cell->delete();
-        return redirect()->route('cells.index');
+        return redirect()->route('cells.index')->with('success','La celula se elimino exitosamente.');
     }
 }

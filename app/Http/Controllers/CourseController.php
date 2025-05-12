@@ -13,13 +13,13 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index( Request $request)
+    public function index(Request $request)
     {
         $programs = Program::all();
         $courses = Course::with(['program'])
-                            ->filter()
-                            ->orderBy('name_course','desc')
-                            ->paginate(15);
+            ->filter()
+            ->orderBy('name_course', 'desc')
+            ->paginate(15);
         return view('courses.index', compact('courses', 'programs'));
     }
 
@@ -30,7 +30,7 @@ class CourseController extends Controller
     {
         $programs = Program::all();
         $profiles = Profile::all();
-        return view('courses.create', compact('profiles','programs'));
+        return view('courses.create', compact('profiles', 'programs'));
     }
 
     /**
@@ -42,13 +42,13 @@ class CourseController extends Controller
             'name_course' => ['required', 'min:5'],
             'status' => ['required'],
             'study_hours' => ['required', 'integer'],
-            'profiles' => ['nullable','array']
+            'profiles' => ['nullable', 'array']
         ]);
         $course = Course::create([
             'name_course' => $request->name_course,
             'status' => $request->status,
             'study_hours' => $request->study_hours,
-            'program_id'=>$request->program_id
+            'program_id' => $request->program_id
         ]);
         $course->profiles()->attach($request->profiles);
         return redirect()->route('courses.index');
@@ -59,9 +59,9 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
-       $programs = Program::all();
-       $profiles = Profile::all();
-       return view('courses.edit',compact('course','profiles','programs')); 
+        $programs = Program::all();
+        $profiles = Profile::all();
+        return view('courses.edit', compact('course', 'profiles', 'programs'));
     }
 
     /**
@@ -83,5 +83,16 @@ class CourseController extends Controller
         ]);
         $course->profiles()->sync($request->profiles);
         return redirect()->route('courses.index');
+    }
+
+    public function destroy(Course $course)
+    {
+        if ($course->profiles()->exists() || $course->employees()->exists()) {
+            return redirect()->back()->with('error', 'No se puede eliminar el curso porque tiene perfiles o empleados asignados.');
+        }
+
+        $course->delete();
+
+        return redirect()->route('courses.index')->with('success', 'Curso eliminado correctamente.');
     }
 }
