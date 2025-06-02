@@ -24,7 +24,7 @@ class EmployeeCourseController extends Controller
             'grade' => ['numeric', 'min:1', 'max:10']
         ]);
         $employee->courses()->updateExistingPivot($course->id, [
-            'completion_date'=> date('Y-d-m'),
+            'completion_date'=> now(),
             'completed' => true,
             'grade' => $request->grade
         ]);
