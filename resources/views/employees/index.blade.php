@@ -19,6 +19,14 @@
                     class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-500">
             </div>
 
+            <!-- Filtro por ID del Empleado -->
+            <div class="flex flex-col">
+                <label for="search" class="text-gray-700 font-medium mb-2">ID del Empleado</label>
+            <input type="text" name="idEmployee" id="search" placeholder="Buscar por ID..."
+                    value="{{ request('idEmployee') }}"
+                    class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-500">
+            </div>
+
             <!-- Filtro por perfil -->
             <div class="flex flex-col">
                 <label for="profile" class="text-gray-700 font-medium mb-2">Perfil</label>
