@@ -15,7 +15,7 @@ class Employee extends Model
      *
      * @var array
      */
-    protected $fillable = ['name_employee', 'id_employee','email', 'profile_id', 'cell_id'];
+    protected $fillable = ['name_employee', 'id_employee','email', 'profile_id', 'cell_id','admission_date'];
 
     public function profile()
     {
@@ -37,6 +37,9 @@ class Employee extends Model
     {
         $query->when(request('search'), function ($query) {
             $query->where('name_employee', 'like', '%' . request('search') . '%');
+        })
+        ->when(request('idEmployee'), function($query){
+            $query->where('id_employee',"=",request('idEmployee'));
         })
         ->when(request('profile'), function ($query) {
             $query->where('profile_id', '=', request('profile'));

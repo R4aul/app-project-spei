@@ -20,7 +20,7 @@ class EmployeeController extends Controller
         $cells = Cell::all();
         $employees = Employee::with(['profile', 'cell'])
             ->filter()
-            ->orderBy('name_employee', 'desc')
+            ->orderBy('id_employee', 'asc')
             ->paginate(15);
         return view('employees.index', compact('employees', 'cells', 'profiles'));
     }
@@ -45,14 +45,16 @@ class EmployeeController extends Controller
             'id_employee' => ['required', 'string'],
             'email' => ['required', 'email', 'unique:employees,email'],
             'profiles' => ['nullable', 'array'],
-            'cells' => ['nullable', 'array']
+            'cells' => ['nullable', 'array'],
+            'admission_date'=>['required','date']
         ]);
         $employee = Employee::create([
             'name_employee' => $request->name_employee,
             'id_employee' => $request->id_employee,
             'email' => $request->email,
             'profile_id' => $request->profile_id,
-            'cell_id' => $request->cell_id
+            'cell_id' => $request->cell_id,
+            'admission_date'=>$request->admission_date
         ]);
         $employee->courses()->attach($request->courses);
         return redirect()->route('employees.index');
@@ -103,13 +105,15 @@ class EmployeeController extends Controller
             'name_employee' => ['required', 'min:5'],
             'email' => ['required'],
             'profiles' => ['nullable', 'array'],
-            'cells' => ['nullable', 'array']
+            'cells' => ['nullable', 'array'],
+            'admission_date'=>['required','date']
         ]);
         $employee->update([
             'name_employee' => $request->name_employee,
             'email' => $request->email,
             'profile_id' => $request->profile_id,
-            'cell_id' => $request->cell_id
+            'cell_id' => $request->cell_id,
+            'admission_date'=>$request->admission_date
         ]);
         $employee->courses()->sync($request->courses);
         return redirect()->route('employees.index');

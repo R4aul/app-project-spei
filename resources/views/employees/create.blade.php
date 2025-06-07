@@ -36,6 +36,17 @@
                     <p class="text-red-800">{{ $message }}</p>
                 @enderror
             </div>
+            
+            <!-- Email -->
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700 font-medium mb-2">Fecha de ingreso</label>
+                <input type="date" name="admission_date" id="admission_date" value="{{ old('admission_date') }}"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                    required>
+                @error('admission_date')
+                    <p class="text-red-800">{{ $message }}</p>
+                @enderror
+            </div>
 
             <!-- Perfil -->
             <div class="mb-6">
