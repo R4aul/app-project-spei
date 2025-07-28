@@ -2,7 +2,7 @@
 @section('title', 'progress')
 @section('content')
 
-        <!-- Formulario de búsqueda -->
+    <!-- Formulario de búsqueda -->
     <div class="mb-6 bg-gray-50 p-6 rounded-lg shadow-md">
         <form action="{{ route('progress.index') }}" method="GET" class="grid grid-cols-1 gap-4 md:grid-cols-3">
             <!-- Filtro por nombre del Empleado -->
@@ -56,6 +56,15 @@
                 </button>
             </div>
         </form>
+        <!-- Botón de descarga Excel -->
+        <div class="flex justify-end mt-4">
+            <form action="{{ route('export.progress') }}" method="POST">
+                @csrf
+                <button type="submit" class="bg-green-500 text-white rounded-lg py-2 px-4 hover:bg-green-600">
+                    Descargar formato Excel
+                </button>
+            </form>
+        </div>
     </div>
 
     <!-- resources/views/employees/progress.blade.php -->
@@ -98,7 +107,8 @@
                                             @foreach ($data['programs'] as $program)
                                                 <tr class="hover:bg-gray-50">
                                                     <td class="px-4 py-2 border">{{ $program['program'] }}</td>
-                                                    <td class="px-4 py-2 border text-center">{{ $program['total_courses'] }}
+                                                    <td class="px-4 py-2 border text-center">
+                                                        {{ $program['total_courses'] }}
                                                     </td>
                                                     <td class="px-4 py-2 border text-center">
                                                         {{ $program['completed_courses'] }}</td>
