@@ -37,7 +37,7 @@ class ProgressProfileController extends Controller
         // Mapeamos los empleados de la colección de la paginación
         $progressData = $employees->items(); // Usamos items() para acceder a la colección de resultados paginados
 
-        $progressData = collect($progressData)->map(function ($employee) {
+        $progressData = collect($employees->items())->map(function ($employee) {
             // Verifica si los cursos están cargados
             if (!$employee->relationLoaded('courses')) {
                 return null; // Si no tiene cursos, omítelo
@@ -51,8 +51,10 @@ class ProgressProfileController extends Controller
             // Mapea los programas y calcula el progreso
             $programProgress = $programs->map(function ($courses, $programId) {
                 $program = $courses->first()->program;
-                $totalCourses = $program->courses->count();
-                $completedCourses = $courses->where('pivot.completed', true)->count();
+                $totalCourses = $courses->count();
+                $completedCourses = $courses->filter(function($course){
+                    return $course->pivot->completed && $course->pivot->grade >= 8;
+                })->count();
 
                 // Calcula el porcentaje de progreso
                 $percentage = $totalCourses > 0
